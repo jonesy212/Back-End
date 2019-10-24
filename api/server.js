@@ -23,7 +23,7 @@ server.use('/api/farms', primaryRouter)
 server.use('/api/orders', orderRouter)
 server.use('/api/users', userRouter)
 server.use('/api/farm/products', productRouter)
-server.user('/api/farm', farmRouter)
+server.use('/api/farm', farmRouter)
 
 // server.use('/api/orders', order)
 

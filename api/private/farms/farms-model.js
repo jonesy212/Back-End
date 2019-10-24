@@ -24,11 +24,11 @@ function findById(id){
     .first()
 }
 
-function findByFarmName(farmname){
-    return db('users')
-    .where({farmname})
-    .first()
-}
+// function findByFarmName(farmname){
+//     return db('users')
+//     .where({farmname})
+//     .first()
+// }
 
 function remove(id) {
     return db(table)
