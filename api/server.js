@@ -8,6 +8,7 @@ const primaryRouter = require('../api/auth/auth-router')
 const userRouter = require('../api/private/users/user-router')
 const productRouter = require('../api/private/products/product-router')
 const orderRouter = require('../api/private/orders/order-router')
+const farmRouter = require('../api/private/farms/farms-router')
 
 const server = express()
 
@@ -22,6 +23,7 @@ server.use('/api/farms', primaryRouter)
 server.use('/api/orders', orderRouter)
 server.use('/api/users', userRouter)
 server.use('/api/farm/products', productRouter)
+server.user('/api/farm', farmRouter)
 
 // server.use('/api/orders', order)
 

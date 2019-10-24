@@ -55,10 +55,3 @@ function findFarmProducts(farmId) {
       .where('farm_id', farmId);
   }
 
-
-
-
-// function findProductsByFarm(id) {
-//     return db(table)
-//     .join()
-// }
