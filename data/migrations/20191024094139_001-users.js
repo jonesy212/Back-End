@@ -3,8 +3,6 @@ exports.up = function(knex) {
       .createTable("users", col => {
         col //USER_ID
           .increments("user_id")
-          .notNullable()
-          .unique();
         col //USERNAME
           .string("username", 128)
           .unique()
@@ -14,15 +12,12 @@ exports.up = function(knex) {
           .notNullable();
         col.string("role", 128);
         col //FARMER-BOOLEAN-ADMIN
-          .string("farmer")
-          .notNullable()
+          .string("is_farmer")
           .defaultTo(false);
       })
       .createTable("contact_info", col => {
         col //CONTACT_ID
           .increments("contact_id")
-          .notNullable()
-          .unique();
         col //USER_CONTACT_CONNECTOR_ID
           .integer("user_contact_id")
           .notNullable()
@@ -47,40 +42,36 @@ exports.up = function(knex) {
           .notNullable();
         col //FARM_NAME
           .string("farm_name")
-          .notNullable()
           .unique();
       })
       .createTable("products", col => {
         col //PRODUCT_ID
-          .increments("product_id")
-          .notNullable()
-          .unique();
+          .increments("product_id");
         col // PRODUCT NAME
-          .string("product_name", 128);
+          .string("product_name", 128)
+          .notNullable();
         col //TYPE
-          .string("type", 128);
+          .string("type", 128)
+          .notNullable();
         col //PRICE
           .decimal("price", 128)
           .notNullable();
         col //INVENTORY
           .integer("inventory", 128)
-          .notNullable();
+          .notNullable()
+         
         col //DESCRIPTION
-          .text("description", 300);
+          .text("description", 300)
+          .notNullable();
       })
       .createTable("orders", col => {
         col //ORDER_ID
           .increments("order_id", 128)
-          .notNullable()
-          .unique();
         col //ORDER_DATE
           .date("order_date", 128),
           col.datetime("time");
         col //QUANTITY
           .integer("quantity", 20);
-        col //UNITS
-          .integer("units_ordered", 128)
-          .notNullable();
         col
           .integer("user_id")
           .unsigned()
@@ -98,9 +89,7 @@ exports.up = function(knex) {
       })
       .createTable("product_orders", col => {
         col
-          .increments("prod_order_id")
-          .notNullable()
-          .unique();
+          .increments()
         col
           .integer("product_id")
           .unsigned()
@@ -129,8 +118,6 @@ exports.up = function(knex) {
       .createTable("farms", col => {
         col //FARM ID
           .increments("farm_id")
-          .notNullable()
-          .unique();
         col //USER_ID
           .integer("user_id")
           .unsigned()
@@ -150,8 +137,6 @@ exports.up = function(knex) {
       .createTable("farm_orders", col => {
         col // FARM_ORDER_ID
           .increments("farm_order_id")
-          .notNullable()
-          .unique();
         col //ORDER_ID
           .integer("order_id")
           .unsigned()

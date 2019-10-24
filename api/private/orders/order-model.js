@@ -16,34 +16,28 @@ function find() {
 }
 
 function findById(order_id) {
-  return db(`${table} as p`)
-    .select(
-      "p.order_id",
-      "p.product_name",
-      "p.price",
-      "p.inventory",
-      "p.description",
-      "p.type"
-    )
+  return db(`${table}`)
+  .join("product_orders", "o.order_id", "product_orders.order_id" )
+  .join("products as p", "o.order_id", "p.order_id")
+.select(
+     "p.product_name",
+     "p.price",
+     "p.type",
+     "p.inventory",
+     "o.order_id",
+     "o.order_date",
+     "o.    "
+   )
     .where({ order_id })
     .first();
 }
 // db('oldtable')
 // .join(newtable,  oldtable.forighn_key  , newtable.id)
-function add(orderId) {
-    return db("orders")
-    .join("order_products as o", "product_orders.order_id", "orders.order_id" )
-    .join("products as p", "product_orders.product_id", "products.product_id")
-   .select(
-        "p.product_name",
-        "p.price",
-        "p.type",
-        "o.order_id",
-        "o.order_date",
-        "o.quantity"
-      )
-      .insert(orderId)
-      .then(([id]) => findById(id));
+function add(body, tbl) {
+    return db(tbl)
+    
+      .insert(body)
+      .then(([id]) => id);
 }
 
 function update(id, changes) {

@@ -2,6 +2,7 @@ const router = require('express').Router()
 
 const Orders = require('./order-model')
 
+const db = require('../../../data/dbConfig')
 
 //localhost:5000/api/orders
 router.get("/", (req, res) => {
@@ -32,12 +33,49 @@ router.get("/:id", (req, res) => {
     });
 });
 
+// //ADD ORDER //localhost:5000/orders
+// router.post("/", (req, res) => {
+//   const order = req.body;
+//   Orders.add(order)
+//     .then(order => {
+//       res.status(201).json({ order });
+//     })
+//     .catch(err => {
+//       res
+//         .status(500)
+//         .json({ message: `Unable to add new orders ${err.stack}` });
+//     });
+//   console.log(req.body);
+// });
+
+
+//product_id 
+//       "user_id":"",
+//       "quantity":"",
+
 //ADD ORDER //localhost:5000/orders
 router.post("/", (req, res) => {
-  const order = req.body;
-  Orders.add(order)
-    .then(order => {
-      res.status(201).json({ order });
+
+  Orders.add({
+      quantity: req.body.quantity,
+      user_id: req.body.user_id   
+  }, "orders")
+    .then(order_id => {
+      Orders.add({
+          product_id: req.body.product_id,
+          order_id: order_id
+      }, "product_orders")
+      .then(prod_order_id => {
+          return db("product_orders as po")
+          .join('products as p', 'po.product_id','p.product_id')
+          .join('orders as o', 'po.order_id', 'o.order_id')
+          .select('p.product_name', 'p.price', 'p.type', 'o.quantity','o.order_date')
+          .where({ prod_order_id })
+          .first()
+          .then( (result) => {
+            res.status(201).json({ order: result });
+          });
+      })
     })
     .catch(err => {
       res

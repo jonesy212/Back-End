@@ -77,6 +77,14 @@ router.put("/:id", (req, res) => {
     });
 });
 
+// do a put request and update
+//farmer for below
+// {
+//     username: "username" , 
+//     password: "user pass",
+//     is_farmer: true
+// }
+
 //DELETE BY USER ID //localhost:5000/users/:id
 router.delete("/:id", (req, res) => {
   return Users.remove(id)
