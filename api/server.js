@@ -21,7 +21,7 @@ server.use(express.json())
 server.use('/api/farms', primaryRouter)
 server.use('/api/orders', orderRouter)
 server.use('/api/users', userRouter)
-server.use('/api/products', productRouter)
+server.use('/api/farm/products', productRouter)
 
 // server.use('/api/orders', order)
 

@@ -5,9 +5,12 @@ exports.seed = function(knex) {
     .then(function () {
       // Inserts seed entries
       return knex('users').insert([
-        {username: "Jenny"},
-        {username: "Sonya"},
-        {username: "Diane"}
+        {
+          product_name: "Lettuce",
+           price: 3.99,
+           type: "vegetable",
+            inventory:"90"
+         },
       ]);
 
    })
